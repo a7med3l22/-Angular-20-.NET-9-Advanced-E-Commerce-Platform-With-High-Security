@@ -1,0 +1,97 @@
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg rounded-4">
+                <div class="card-header text-center bg-primary text-white">
+                    <h3>Register New Account</h3>
+                </div>
+                <div class="card-body">
+
+                    <!-- Form -->
+                    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+                        <!-- First & Last Name -->
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">First Name</label>
+                                <input type="text" class="form-control" formControlName="firstName">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Last Name</label>
+                                <input type="text" class="form-control" formControlName="lastName">
+                            </div>
+                        </div>
+
+                        <!-- Username -->
+                        <div class="mb-3">
+                            <label class="form-label">Username</label>
+                            <input type="text" class="form-control" formControlName="userName">
+                        </div>
+
+                        <!-- Email -->
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" formControlName="email">
+                        </div>
+
+                        <!-- Password & Confirm Password -->
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Password</label>
+                                <input type="password" class="form-control" formControlName="password">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Confirm Password</label>
+                                <input type="password" class="form-control" formControlName="confirmPassword">
+                                <!-- ✅ error message -->
+                                <div *ngIf="registerForm.errors?.['mismatch'] && registerForm.get('confirmPassword')?.touched"
+                                    class="text-danger mt-1">
+                                    Passwords do not match
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- Nested FormGroup: Address -->
+                        <div formGroupName="userAddress">
+                            <h5 class="mt-4">Address</h5>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Street</label>
+                                    <input type="text" class="form-control" formControlName="street">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">City</label>
+                                    <input type="text" class="form-control" formControlName="city">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">State</label>
+                                    <input type="text" class="form-control" formControlName="state">
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label class="form-label">Zip Code</label>
+                                    <input type="text" class="form-control" formControlName="zipCode">
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label class="form-label">Country</label>
+                                    <input type="text" class="form-control" formControlName="country">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-success px-5" [disabled]="registerForm.invalid">
+                                Register
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+[
+  {
+    "Name": "Hot Coffees",
+    "Description": "Freshly brewed hot coffees including espresso, americano, and cappuccino."
+  },
+  {
+    "Name": "Iced Coffees",
+    "Description": "Chilled coffee beverages served over ice for a refreshing taste."
+  },
+  {
+    "Name": "Lattes & Macchiatos",
+    "Description": "Creamy espresso-based drinks with milk and flavors like caramel or vanilla."
+  },
+  {
+    "Name": "Teas & Refreshers",
+    "Description": "Variety of teas and fruit refreshers, hot or iced, full of flavor."
+  },
+  {
+    "Name": "Frappuccino® Blended Beverages",
+    "Description": "Icy, blended drinks in coffee, cream, or tea-based varieties."
+  }
+]

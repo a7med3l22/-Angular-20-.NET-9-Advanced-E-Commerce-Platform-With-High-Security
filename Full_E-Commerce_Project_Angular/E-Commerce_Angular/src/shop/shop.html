@@ -1,0 +1,155 @@
+<div class="container my-4">
+  <h2 class="fw-bold mb-4 text-primary">Shopping</h2>
+  <div class="row">
+
+    <!-- Sidebar -->
+    <div class="col-md-3">
+
+      <!-- Sorting -->
+      <div class="mb-4">
+        <h6 class="fw-semibold">Sorting</h6>
+        <select class="form-select shadow-sm rounded-3" [ngModel]="_sortOption.value"
+          (ngModelChange)="_sortOption.next($event)">
+          <option value="name_asc">Name ↑</option>
+          <option value="name_desc">Name ↓</option>
+          <option value="price_asc">Price ↑</option>
+          <option value="price_desc">Price ↓</option>
+        </select>
+      </div>
+
+      <!-- Categories -->
+      <div>
+        <h6 class="fw-semibold mb-2">Categories</h6>
+        <div class="list-group rounded-4 shadow-sm">
+          @if (getAllCatrgories) {
+          <!-- All Categories -->
+          <button (click)="GetPrdByCat(undefined)" class="list-group-item list-group-item-action"
+            [ngClass]="categoryId==undefined ? 'active' : ''">
+            All Categories
+          </button>
+
+          <!-- Category List -->
+          @for (cat of getAllCatrgories; track $index) {
+          <button (click)="GetPrdByCat(cat.id)" class="list-group-item list-group-item-action"
+            [ngClass]="categoryId==cat.id ? 'active' : ''">
+            {{ cat.name }}
+          </button>
+          }
+          }
+        </div>
+
+        <!-- Reset Button -->
+        <div class="mt-3 d-grid">
+          <button (click)="ResetFilters()" class="btn btn-outline-danger rounded-pill">
+            Reset All Filters
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="col-md-9">
+      @if(getAllProducts) {
+
+      <!-- Top Bar -->
+      <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-3">
+
+        <!-- Count -->
+        <div>
+          <small class="text-muted">
+            Total Products:
+            <strong>{{getAllProducts.allProductsCount}}</strong>
+          </small>
+        </div>
+
+        <!-- Search + Showing -->
+        <div class="d-flex flex-column w-100 w-md-50">
+          <div class="input-group shadow-sm rounded-3">
+            <span class="input-group-text bg-light">
+              <i class="bi bi-search"></i>
+            </span>
+            <input type="text" [ngModel]="_search.value" (ngModelChange)="search($event)" class="form-control"
+              placeholder="Search products...">
+          </div>
+          <small class="mt-1 text-muted">
+            <strong>
+              Showing
+              @if(getAllProducts.totalReturnedProducts==0){
+              0 - 0 of 0
+              } @else {
+              {{(((getAllProducts.pageNumber-1)*getAllProducts.pageSize)+1)}} -
+              {{(((getAllProducts.pageNumber-1)*getAllProducts.pageSize)+getAllProducts.returnedPaginationProducts)}}
+              of
+              {{getAllProducts.totalReturnedProducts}}
+              }
+            </strong>
+          </small>
+        </div>
+      </div>
+
+      <!-- Products Grid -->
+      <div class="row g-4">
+        @for (product of getAllProducts.products; track $index) {
+        <div class="col-md-4 col-sm-6">
+          <div class="card h-100 shadow-sm border-0 rounded-4 hover-shadow">
+
+            <!-- Product Image -->
+            <img [src]="product.photosUrl[product.MainPhotoIndex]" class="img-fluid rounded-4 shadow-sm"
+              [alt]="product.name" style="max-height: 250px; object-fit: contain;">
+            <!-- Thumbnails -->
+            <div class="d-flex justify-content-center gap-2 mt-2 mb-2 flex-wrap">
+              @for (photoUrl of product.photosUrl; track $index) {
+              <img [src]="photoUrl" class="img-thumbnail rounded shadow-sm"
+                style="width: 50px; height: 50px; object-fit: cover; cursor: pointer;"
+                (click)="product.MainPhotoIndex=$index">
+              }
+            </div>
+
+            <!-- Product Info -->
+            <div class="card-body d-flex flex-column text-center">
+              <h6 class="fw-bold text-primary mb-1">{{ product.name }}</h6>
+              <p class="small text-muted flex-grow-1">{{ product.description }}</p>
+
+              <div class="mb-2">
+                <span class="text-decoration-line-through text-danger small me-2">
+                  ${{ product.oldPrice }}
+                </span>
+                <span class="fw-bold text-success">
+                  ${{ product.newPrice }}
+                </span>
+                <span class="badge bg-danger rounded-pill">
+                  -{{ ((product.oldPrice - product.newPrice) / product.oldPrice * 100) | number:'1.0-0' }}%
+                </span>
+              </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="card-footer d-flex justify-content-between bg-light border-0">
+              <button [routerLink]="'/basket/addToCart/'+product.id" class="btn btn-outline-dark btn-sm rounded-pill">
+                <i class="fa-solid fa-hand-holding-dollar me-2"></i> Intent to Buy
+              </button>
+              <button [routerLink]="'/shop/productDetails/'+product.id" class="btn btn-success btn-sm rounded-pill">
+                Details
+              </button>
+              <!-- استخدم relative route بدل absolute path: -->
+            </div>
+          </div>
+        </div>
+        }
+      </div>
+
+      <!-- Pagination -->
+      <!-- <pagination 
+          [itemsPerPage]="getAllProducts.pageSize" 
+          (pageChanged)="pageChanged($event)" 
+          class="justify-content-center mt-4"
+          [totalItems]="getAllProducts.totalReturnedProducts">
+        </pagination> -->
+      <app-pagination></app-pagination>
+
+      }
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>
+<!-- علشان ليه ابناء  -->

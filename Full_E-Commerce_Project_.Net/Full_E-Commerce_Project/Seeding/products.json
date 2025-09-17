@@ -1,0 +1,100 @@
+[
+  {
+    "Name": "Caffè Americano",
+    "Description": "Espresso shots topped with hot water for a rich, bold taste.",
+    "NewPrice": 3.25,
+    "OldPrice": 3.50,
+    "CategoryId": 1
+  },
+  {
+    "Name": "Cappuccino",
+    "Description": "Espresso with steamed milk, finished with a thick layer of foam.",
+    "NewPrice": 3.95,
+    "OldPrice": 4.20,
+    "CategoryId": 1
+  },
+  {
+    "Name": "Iced Shaken Espresso",
+    "Description": "Espresso shaken with ice and a touch of sweetness, smooth and refreshing.",
+    "NewPrice": 4.25,
+    "OldPrice": 4.50,
+    "CategoryId": 2
+  },
+  {
+    "Name": "Vanilla Sweet Cream Cold Brew",
+    "Description": "Cold brew coffee with house-made vanilla sweet cream.",
+    "NewPrice": 4.95,
+    "OldPrice": 5.20,
+    "CategoryId": 2
+  },
+  {
+    "Name": "Caramel Macchiato",
+    "Description": "Espresso combined with vanilla syrup, steamed milk, topped with caramel drizzle.",
+    "NewPrice": 4.75,
+    "OldPrice": 5.00,
+    "CategoryId": 3
+  },
+  {
+    "Name": "Pumpkin Spice Latte",
+    "Description": "Espresso with steamed milk and fall spices: pumpkin, cinnamon, nutmeg, clove.",
+    "NewPrice": 5.25,
+    "OldPrice": 5.50,
+    "CategoryId": 3
+  },
+  {
+    "Name": "Matcha Green Tea Latte",
+    "Description": "Smooth matcha green tea blended with steamed milk for a creamy taste.",
+    "NewPrice": 4.65,
+    "OldPrice": 4.85,
+    "CategoryId": 4
+  },
+  {
+    "Name": "Chai Latte",
+    "Description": "Black tea infused with cinnamon, clove, and spices blended with steamed milk.",
+    "NewPrice": 4.25,
+    "OldPrice": 4.50,
+    "CategoryId": 4
+  },
+  {
+    "Name": "Mocha Frappuccino®",
+    "Description": "Coffee blended with mocha sauce and ice, topped with whipped cream.",
+    "NewPrice": 4.95,
+    "OldPrice": 5.20,
+    "CategoryId": 5
+  },
+  {
+    "Name": "Caramel Frappuccino®",
+    "Description": "Coffee blended with caramel syrup and ice, finished with whipped cream & drizzle.",
+    "NewPrice": 5.15,
+    "OldPrice": 5.40,
+    "CategoryId": 5
+  },
+  {
+    "Name": "Nitro Cold Brew",
+    "Description": "Cold brew coffee infused with nitrogen for a smooth and creamy texture.",
+    "NewPrice": 5.25,
+    "OldPrice": 5.50,
+    "CategoryId": 2
+  },
+  {
+    "Name": "Flat White",
+    "Description": "Ristretto shots of espresso with steamed milk for a velvety, rich flavor.",
+    "NewPrice": 4.45,
+    "OldPrice": 4.65,
+    "CategoryId": 1
+  },
+  {
+    "Name": "Iced Mango Dragonfruit Refresher™",
+    "Description": "A vibrant blend of sweet mango and dragonfruit flavors shaken with ice.",
+    "NewPrice": 4.95,
+    "OldPrice": 5.20,
+    "CategoryId": 4
+  },
+  {
+    "Name": "Strawberries & Crème Frappuccino®",
+    "Description": "A blend of ice, milk and strawberry purée topped with whipped cream.",
+    "NewPrice": 4.75,
+    "OldPrice": 5.00,
+    "CategoryId": 5
+  }
+]

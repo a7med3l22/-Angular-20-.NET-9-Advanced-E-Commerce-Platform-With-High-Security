@@ -1,0 +1,82 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary px-3 shadow-sm sticky-top">
+  <div class="container-fluid">
+
+    <!-- Logo -->
+    <a class="navbar-brand fw-bold text-white" routerLink="/home">
+      <i class="fa-solid fa-cart-shopping me-2"></i> E-commerce
+    </a>
+
+    <!-- Mobile toggle -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Nav content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+      <!-- Links -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/home" routerLinkActive="active-link"
+            [routerLinkActiveOptions]="{ exact: true }">Home</a>
+        </li>
+
+        @if(isAuthorize) {
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/shop" routerLinkActive="active-link"
+              [routerLinkActiveOptions]="{ exact: true }">Shopping</a>
+          </li>
+        }
+
+        <li class="nav-item"><a class="nav-link" routerLink="/aboutUs">About Us</a></li>
+        <li class="nav-item"><a class="nav-link"  routerLink="/bestSeller">Best Seller</a></li>
+      </ul>
+
+      <!-- Cart -->
+       @if(isAuthorize) {
+      <a [routerLink]="'/basket/cartItems'" class="btn btn-outline-light position-relative me-3">
+        <i class="fa-solid fa-cart-shopping fs-5"></i>
+        @if(basketItems && basketItems > 0)
+        {
+ <span
+              class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+              style="font-size: 0.75rem; transform: translate(-30%, -30%);">
+          {{ basketItems }}
+        </span>
+        }
+       
+      </a>
+    }
+      <!-- User Section -->
+      <div class="d-flex align-items-center">
+        @if(!isAuthorize) {
+          <!-- If not logged in -->
+          <a class="btn btn-outline-light me-2" routerLink="/Account/register">
+            <i class="fa fa-user-plus me-1"></i> Register
+          </a>
+          <a class="btn btn-light text-primary" routerLink="/Account/login">
+            <i class="fa fa-sign-in-alt me-1"></i> Login
+          </a>
+        }
+        @if(isAuthorize) {
+          <!-- If logged in -->
+          <div class="dropdown">
+            <a class="btn btn-light dropdown-toggle text-primary d-flex align-items-center" href="#" role="button"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fa-regular fa-circle-user me-2"></i> My Account
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end shadow-sm rounded-3">
+              <li><a class="dropdown-item" routerLink="/Account/profile"><i class="fa fa-user me-2"></i> Profile</a></li>
+              <li><a class="dropdown-item" routerLink="/orders"><i class="fa fa-list me-2"></i> My Orders</a></li>
+              <li><hr class="dropdown-divider" /></li>
+              <li><a class="dropdown-item text-danger" routerLink="/Account/logout">
+                <i class="fa fa-sign-out-alt me-2"></i> Logout</a>
+              </li>
+            </ul>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</nav>

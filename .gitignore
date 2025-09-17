@@ -1,0 +1,24 @@
+# ===== .NET =====
+**/bin/
+**/obj/
+.vs/
+*.user
+*.suo
+*.sln.docstates
+*.db
+*.pfx
+appsettings.Development.json
+
+# ===== Node / Angular =====
+**/node_modules/
+**/dist/
+**/.angular/
+**/.angular/cache
+**/node_modules/.cache
+
+# ===== Global =====
+*.env
+*.tsbuildinfo
+*.log
+.DS_Store
+Thumbs.db

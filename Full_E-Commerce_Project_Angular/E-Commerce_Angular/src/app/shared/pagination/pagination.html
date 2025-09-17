@@ -1,0 +1,8 @@
+<pagination
+  [itemsPerPage]="pageSize"
+  [totalItems]="totalReturnedProducts"
+
+  [ngModel]="pageNumber.value" 
+  (ngModelChange)="pageChanged($event)"
+  class="justify-content-center mt-4">
+</pagination>

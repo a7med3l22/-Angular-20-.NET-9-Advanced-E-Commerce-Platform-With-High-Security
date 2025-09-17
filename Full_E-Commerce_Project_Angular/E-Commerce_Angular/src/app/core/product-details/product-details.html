@@ -1,0 +1,125 @@
+<!-- {{filteredProducts.showIcons}} -->
+@if(product) {
+  <div class="container my-5">
+    <!-- عنوان المنتج -->
+    <h3 class="fw-bold text-center mb-4 text-primary">
+      {{ product.name }}
+    </h3>
+    
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card shadow-lg border-0 rounded-4">
+          
+        <!-- صورة المنتج -->
+   
+        <div class="p-3 text-center">
+          <img [src]="product.photosUrl[product.MainPhotoIndex]" class="img-fluid rounded-4 shadow-sm"
+            [alt]="product.name" style="max-height: 250px; object-fit: contain;">
+        </div> 
+        <!-- صور مصغرة -->
+        <div class="d-flex justify-content-center gap-2 mb-3 flex-wrap">
+          @for (photoUrl of product.photosUrl; track $index) {
+          <img [src]="photoUrl" class="img-thumbnail border border-2 rounded"
+            style="width: 60px; height: 60px; object-fit: cover; cursor: pointer;"
+            [ngClass]="{'border-primary': product.MainPhotoIndex === $index}" (click)="product.MainPhotoIndex = $index">
+          }
+        </div>
+
+        <div class="card-body text-center">
+          <p class="text-muted small mb-3">
+            {{ product.description }}
+          </p>
+
+          <!-- السعر -->
+          <div class="mb-3">
+            <span class="text-decoration-line-through text-danger me-2 small">
+              ${{ product.oldPrice }}
+            </span>
+            <span class="fw-bold fs-5 text-success">
+              ${{ product.newPrice }}
+            </span>
+            <span class="badge bg-danger rounded-pill">
+                  -{{ ((product.oldPrice - product.newPrice) / product.oldPrice * 100) | number:'1.0-0' }}%
+                </span>
+          </div>
+
+       @if(filteredProducts.showIcons)
+       {
+          <!-- أزرار التنقل -->
+          <div class="d-flex justify-content-between mt-3 flex-wrap gap-2">
+            <button class="btn btn-sm w-100 w-md-45" (click)="next()" [disabled]="max"
+              [ngClass]="max ? 'btn-secondary disabled' : 'btn-dark'">
+              Next Product In (Page {{ pageNumber }}) ▶
+            </button>
+            <button class="btn btn-sm w-100 w-md-45" (click)="previous()" [disabled]="min"
+              [ngClass]="min ? 'btn-secondary disabled' : 'btn-dark'">
+              ◀ Previous Product In (Page {{ pageNumber }})
+            </button>
+          </div>
+       }
+
+          
+        
+        </div>
+
+        <!-- Footer -->
+
+
+
+        <div class="card-footer text-center bg-light">
+          <button class="btn btn-success btn-sm"
+            [routerLink]="'/basket/addToCart/'+product.id"
+          >
+  <i class="fa-solid fa-hand-holding-dollar me-2"></i> Intent to Buy
+          </button>
+
+          <button (click)="back()" class="btn btn-dark btn-sm mx-2">
+            <i class="fa-solid fa-arrow-left me-2"></i>
+            Back to Shopping
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <pagination [itemsPerPage]="pageSize" [totalItems]="totalReturnedProducts" (pageChanged)="pageChanged($event)"
+    class="justify-content-center mt-4">
+  </pagination> -->
+  <!-- 
+    [Gold]  [Gold]  [Gold]  [Gold]  [Gold]  
+    كل الموضوع اني اخلي القيم اللي بتشوفها ال  html تكون بتبص ع نفس الرفرنس ف الذاكرة لو عاوزهم كلهم يشوفوا قيمة واحده طبعا
+    ف بالتالي لما تكون القيمة ف رفرنس معين و 5 كمبونات بيشوفوا القيمة اللي ف رفرنس واحد بس دي ف بالتالي اي تغيير ف القيمة كله هيشوفها لاني بغير القيمة اللي ليها ال الرفرنس الاصلي واللي ال 5 كمبونات بيبصو عليها ف ب التالي ال 5 هيحسوا ب التغيير
+    So
+    وده اللي يخليني احط ال باجينيشن ف مكان يبص عليه الكمبونانتس اللي انا عاوز يكون نفس الصفحة اللي هنا واقفه علي نفس الصفحة اللي هنا
+    
+    
+    لو معايا حاجة بريميتيف ف سيرفس  لما اغير فيها ف اي حته كل اللي بيشوفوا السيرفس دي بتغيروا هما كمان لاني بغير ف الفاليو نفسها ,!!
+انما لو ساويت  قيمة بريميتيف بقيمة تانيه جديدة ف ال بريميتيف مش بياخد الرفرنس بتاع القيمة القديمة لانه باي فاليو وبالتالي لو غيرت ف حاجة التاني مش هيحس !
+انما لو غيرت ف نفس القيمة هيحسوا عادي طبعا ..
+ولكن لو ساويت حاجة باي رفرنس ب حاجة باي رفرنس ف بالتالي الاتنين هيبقوا بيشاوروا ع نفس الرفرنس ف بالتالي اي تغيير ف واحد منهم هيسمع ف التاني 
+    [Gold]  [Gold]  [Gold]  [Gold]  [Gold]  
+
+مهم جدا .. 
+-------
+ف ال بيهيفيور سابجيكت  لو هو فيه قيمة رفرنس ف القيمة دي متشافه من كل اللي عاملين سبسكرايب عليها لانهم شايفين نفس الرفرنس ولكن اي تغيير ف القيمة عن طريق نيكست طبعا فيها تفاصيل شوية ..
+يعني لو عندي رفرنس فاليو وانا عملت رفرنس فاليو جديد والرفرنس فاليو الجديد ده عملتله نيكست ف ال بيهيبفيور سابجيكت ف بالتالي هيبقي بيشاور ع رفرنس جديد لانه ساويته ب رفرنس جديد ف اللي عاملين سبسكرايب عليه لسه شايفين الرفرنس القديم ف علشان كده بيروح فورا يخليهم يشوفوا الرفرنس الجديد ده ,, 
+انما لو انا معايا رفرنس وغيرت ف نفس الرفرنس ده عن طريق النيكست ف بالتالي كل اللي شايفينه هيحسوا ب التغيير لاني غيرت ف نفس الرفرنس اللي هما بيبصوا عليه   , لاني مش عملت رفرنس جديد وعملت نيكست لل رفرنس الجديد ده ..
+ومش محتاج يبعتلهم اشعار طبعا لو غير ف نفس الرفرنس لانهم شايفينه ب الفعل ولكن هو بيبعت اشعار بردو ف الحالتين سواء غيرت ف نفس الرفرنس او عملت نيكست لرفرنس جديد ..
+ انما لو قيمة باي فاليو ف لو غيرت ف القيمة دي بيروح لل القيم التانية اللي عامله سبسكرايب عليها ويغيرها لل قيمة الجديده ده ف حالة ال بريميتيف .. 
+    
+    -->
+ 
+       @if(filteredProducts.showIcons)
+       {
+  <app-pagination [_id]="_id"></app-pagination>
+       }
+  <!-- <app-pagination></app-pagination> -->
+  <!-- كده انا خليت الابن يشاور ع نفس الرفرنس اللي ف الاب و بالتالي اي تغيير ف الابن اكني غيرت ف الاب لاني بغير ف نفس الرفرنس -->
+
+
+
+
+<!-- <button (click)="checkTest()">Test</button> -->
+
+
+</div>
+}

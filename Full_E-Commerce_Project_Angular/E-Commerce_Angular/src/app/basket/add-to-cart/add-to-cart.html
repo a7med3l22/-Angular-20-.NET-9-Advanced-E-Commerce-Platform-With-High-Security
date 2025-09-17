@@ -1,0 +1,89 @@
+@if (product) {
+<div class="container my-5">
+
+  <!-- عنوان المنتج -->
+  <h3 class="fw-bold text-center mb-4 text-primary">
+    {{ product.name }}
+  </h3>
+
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="card shadow-lg border-0 rounded-4 p-4">
+
+        <!-- صورة المنتج -->
+        <div class="text-center mb-3">
+          <img [src]="product.photosUrl[product.MainPhotoIndex]" 
+               class="img-fluid rounded-4 shadow-sm" 
+               [alt]="product.name" 
+               style="max-height: 350px; object-fit: contain; background: #f8f9fa;">
+        </div> 
+
+        <!-- الصور المصغرة -->
+        <div class="d-flex justify-content-center gap-2 mb-4 flex-wrap">
+          @for (photoUrl of product.photosUrl; track $index) {
+          <img [src]="photoUrl" 
+               class="img-thumbnail rounded shadow-sm" 
+               [ngClass]="{'border border-2 border-primary': product.MainPhotoIndex === $index}" 
+               style="width: 65px; height: 65px; object-fit: cover; cursor: pointer;" 
+               (click)="product.MainPhotoIndex = $index">
+          }
+        </div>
+
+        <!-- تفاصيل المنتج -->
+        <div class="card-body text-center">
+          <p class="text-muted mb-4">
+            {{ product.description }}
+          </p>
+
+          <!-- السعر -->
+          <div class="mb-4">
+            <span class="text-decoration-line-through text-danger me-2 small">
+              ${{ product.oldPrice }}
+            </span>
+            <span class="fw-bold fs-4 text-success">
+              ${{ product.newPrice }}
+            </span>
+             <span class="badge bg-danger rounded-pill">
+                  -{{ ((product.oldPrice - product.newPrice) / product.oldPrice * 100) | number:'1.0-0' }}%
+                </span>
+          </div>
+
+          <!-- العداد + الأزرار -->
+          <div class="d-flex justify-content-center align-items-center gap-3 mb-4">
+
+            <div class="input-group" style="width: 150px;">
+              <button class="btn btn-outline-secondary" type="button" (click)="itemCount = itemCount > 1 ? itemCount - 1 : 1">
+                <i class="fa-solid fa-minus"></i>
+              </button>
+              <input [(ngModel)]="itemCount" 
+                     type="number" 
+                     class="form-control text-center" 
+                     min="1">
+              <button class="btn btn-outline-secondary" type="button" (click)="itemCount = itemCount + 1">
+                <i class="fa-solid fa-plus"></i>
+              </button>
+            </div>
+
+          </div>
+
+          <!-- أزرار الإجراءات -->
+          <div class="d-flex justify-content-center gap-3">
+            <button (click)="addToCart()" 
+                    class="btn btn-dark px-4 rounded-pill">
+              <i class="fa-solid fa-cart-shopping me-2"></i> Add to Cart
+            </button>
+
+            <button class="btn btn-outline-dark px-4 rounded-pill" 
+                    (click)="backToShop()">
+              <i class="fa-solid fa-arrow-left me-2"></i> Back to Shop
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+}

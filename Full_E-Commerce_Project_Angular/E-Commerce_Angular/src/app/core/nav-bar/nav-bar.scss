@@ -1,0 +1,27 @@
+.navbar {
+  background: #3f51b5; // أزرق زي الصورة
+}
+
+.btn-pink {
+  background-color: #f50057;
+  color: #fff;
+  border-radius: 0.5rem;
+
+  &:hover {
+    background-color: #c51162;
+  }
+}
+.active-link {
+  background-color: #3981ed; /* لون أزرق Bootstrap */
+  color: white !important;
+  border-radius: 0.25rem; /* يدي حواف بسيطة */
+}
+
+.navbar {
+  padding-top: 0.7rem !important;
+  padding-bottom: 0.5rem !important;
+}
+.navbar .nav-link,
+.navbar .navbar-brand {
+  font-size: 1.05rem; /* تكبير بسيط للخط */
+}

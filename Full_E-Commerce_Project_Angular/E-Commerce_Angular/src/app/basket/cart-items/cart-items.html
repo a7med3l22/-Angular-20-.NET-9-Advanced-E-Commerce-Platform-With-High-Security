@@ -1,0 +1,133 @@
+@if (basketItems && basketItems.basket.length > 0) {
+
+<!-- زر الرجوع فوق -->
+<div class="text-end mb-3">
+  <button class="btn btn-outline-dark" (click)="backToShop()">
+    <i class="bi bi-shop"></i> Back To Shop
+  </button>
+</div>
+
+<div class="row g-4">
+  @for (basketItem of basketItems.basket; track $index) {
+  <div class="col-12">
+    <div class="card shadow-sm border-0 rounded-4 hover-shadow h-100">
+
+      <div class="row g-0 align-items-center">
+
+        <!-- صورة المنتج -->
+        <div class="col-md-4 text-center p-3">
+          <img [src]="basketItem.photosUrl[basketItem.MainPhotoIndex!]" 
+               class="img-fluid rounded-4 shadow-sm" 
+               [alt]="basketItem.name" 
+               style="max-height: 300px; object-fit: contain; background: #f8f9fa;">
+          
+          <!-- صور مصغرة -->
+          <div class="d-flex justify-content-center gap-2 mt-2 flex-wrap">
+            @for (photoUrl of basketItem.photosUrl; track $index) {
+            <img [src]="photoUrl" 
+                 class="img-thumbnail rounded shadow-sm" 
+                 style="width: 55px; height: 55px; object-fit: cover; cursor: pointer;" 
+                 (click)="basketItem.MainPhotoIndex = $index">
+            }
+          </div>
+        </div>
+
+        <!-- تفاصيل المنتج -->
+        <div class="col-md-8">
+          <div class="card-body d-flex flex-column h-100">
+
+            <!-- الاسم والوصف -->
+            <h5 class="fw-bold text-primary">{{ basketItem.name }}</h5>
+            <p class="text-muted">{{ basketItem.description }}</p>
+
+            <!-- الأسعار -->
+            <div class="mb-2">
+              <span class="text-decoration-line-through text-danger small me-2">
+                ${{ basketItem.oldPrice }}
+              </span>
+              <span class="fw-bold text-success fs-5">
+                ${{ basketItem.newPrice }}
+              </span>
+               <span class="badge bg-danger rounded-pill">
+                  -{{ ((basketItem.oldPrice - basketItem.newPrice) / basketItem.oldPrice * 100) | number:'1.0-0' }}%
+                </span>
+            </div>
+
+            <!-- الكمية -->
+           <div class="mb-2 d-flex align-items-center">
+  <label class="fw-bold me-2 text-secondary">Quantity:</label>
+
+  <div class="input-group w-auto">
+    <!-- زرار - -->
+    <button class="btn btn-outline-secondary"
+            type="button"
+            (click)="decreaseQuantity(basketItem.id,basketItem.quantity)">
+      -
+    </button>
+
+    <!-- input -->
+    <input type="number" min="1"
+           class="form-control text-center"
+           [ngModel]="basketItem.quantity"
+           (ngModelChange)="changeQuantity(basketItem.id, $event)">
+
+    <!-- زرار + -->
+    <button class="btn btn-outline-secondary"
+            type="button"
+            (click)="increaseQuantity(basketItem.id,basketItem.quantity)">
+      +
+    </button>
+  </div>
+</div>
+
+
+            <!-- السعر الإجمالي -->
+            <div class="mb-3">
+              <span class="fw-bold text-dark fs-6">
+                Total: {{ basketItem.quantity * basketItem.newPrice | number: '1.2-2' }} $
+              </span>
+            </div>
+
+            <!-- أزرار -->
+            <div class="mt-auto">
+              <button class="btn btn-outline-danger w-50" (click)="removeItem(basketItem.id)">
+                <i class="bi bi-trash"></i> Remove Item
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  }
+</div>
+
+
+
+
+<!-- 🟢 إجمالي السعر الكلي للسلة -->
+<div class="card shadow-sm border-0 rounded-4 mt-4">
+  <div class="card-body text-center">
+    <h5 class="fw-bold text-dark">
+      Grand Total: 
+      {{ allPrice | number:'1.2-2' }} $
+    </h5>
+  </div>
+</div>
+
+
+<!-- 🟢 إجمالي السعر الكلي للسلة -->
+  <div class="card-body text-center mt-4">
+    <button routerLink="/basket/checkOut" class="btn btn-outline-secondary  w-25">
+      Proceed To CheckOut
+    </button>
+  </div>
+
+}@else {
+  <div class="text-center py-5">
+    <h3 class="text-muted">🛒 Your Basket is Empty</h3>
+    <button class="btn btn-primary mt-3" (click)="backToShop()">Go to Shop</button>
+  </div>
+}
