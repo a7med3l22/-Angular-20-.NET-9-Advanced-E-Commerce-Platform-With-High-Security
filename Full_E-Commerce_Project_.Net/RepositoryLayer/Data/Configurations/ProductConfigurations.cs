@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RepositoryLayer.Data.Migrations
+namespace RepositoryLayer.Data.Configurations
 {
 	public class ProductConfigurations : IEntityTypeConfiguration<Product>
 	{

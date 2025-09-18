@@ -21,7 +21,7 @@ namespace RepositoryLayer.Data.Context
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			//base.OnModelCreating(modelBuilder); // مش هستخدمها لانها مفيش جواها اي حاجة ف مش محتاجها 
-			modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly(),type=>type.Namespace== "RepositoryLayer.Data.Migrations");
+			modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly(),type=>type.Namespace== "RepositoryLayer.Data.Configurations");
 		}
 		public DbSet<Product> Products { get; set; }
 		public DbSet<Photo> Photos { get; set; }

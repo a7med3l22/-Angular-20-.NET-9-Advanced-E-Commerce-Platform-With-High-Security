@@ -15,6 +15,8 @@ namespace CoreLayer.Models.UserModel
 		//public string? PassToken { get; set; }
 		// وان تو وان ريليشن بس عاوز ال ابب يوزر يبقي هو ال متبوع وال ادريس هو التابع 
 		public UsersMainAddresse usersMainAddresse { get; set; } // علشان ده يبقي الاساسي وهو بيتسجل وبعد كده لما يدخل ال ادريس بتاع الدليفري يبقي يعرضله ده فيه لو عمل سيف يتحفظ ف ال ديليفري ادريس 
-		public UsersDeleviredAddresse? usersDeleviredAddresse { get; set; }
+		
+		
+		public ICollection<Order> orders { get; set; }=new HashSet<Order>();
 	}
 }
