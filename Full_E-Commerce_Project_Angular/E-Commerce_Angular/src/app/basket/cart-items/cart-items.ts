@@ -55,20 +55,18 @@ export class CartItems {
 
 
     this.subscription.add(
-      this.basket.basket$.pipe(
-        filter(
-          Basket => Basket.basket.length > 0
-        ),
-        map(Basket => {
-          let totalSum = Basket.basket.map(
-            BasketItem => BasketItem.newPrice * BasketItem.quantity
-          ).reduce((sum, current) => sum + current, 0);
-          return +totalSum.toFixed(2);
-        }
-        )).subscribe
-        (
-          totalSum => this.allPrice = totalSum
-        ));
+      
+        this.basket.totalBasketPrice().subscribe
+          (
+          
+            totalSum =>
+              
+              {
+                this.allPrice = totalSum;
+              }
+          )
+        
+      );
 
 
 

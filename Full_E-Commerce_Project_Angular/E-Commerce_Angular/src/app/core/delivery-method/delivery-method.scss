@@ -1,0 +1,18 @@
+.delivery-methods-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.delivery-option {
+  transition: all 0.3s ease;
+}
+
+.delivery-option:hover {
+  border-color: #007bff;
+  background-color: #f8f9fa;
+  box-shadow: 0 0 6px rgba(0, 123, 255, 0.2);
+}
+
+mat-radio-button .mat-radio-label-content {
+  width: 100%;
+}

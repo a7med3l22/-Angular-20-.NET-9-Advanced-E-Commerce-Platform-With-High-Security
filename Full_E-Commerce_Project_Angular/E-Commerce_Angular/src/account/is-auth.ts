@@ -22,7 +22,7 @@ isAuth=this._isAuth.asObservable();
   this.http.get<boolean>(environment.baseUrl+"Account/isAuthorized").subscribe(
       val=>
       {
-        debugger;
+        // debugger;
         this._isAuth.next(val)
 
       }

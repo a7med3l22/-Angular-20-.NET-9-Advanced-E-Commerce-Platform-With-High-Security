@@ -1,0 +1,22 @@
+[
+  {
+    "Name": "Fast Delivery",
+    "Price": 50.00,
+    "DeliveryTimeInDays": 1
+  },
+  {
+    "Name": "Standard Delivery",
+    "Price": 25.00,
+    "DeliveryTimeInDays": 3
+  },
+  {
+    "Name": "Pickup From Store",
+    "Price": 0.00,
+    "DeliveryTimeInDays": 0
+  },
+  {
+    "Name": "Night Delivery",
+    "Price": 70.00,
+    "DeliveryTimeInDays": 1
+  }
+]

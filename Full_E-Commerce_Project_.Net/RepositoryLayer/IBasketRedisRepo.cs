@@ -12,7 +12,7 @@ namespace RepositoryLayer
 
 		Task AddBasket(string basketId, BasketDto products);
 		
-	 Task<ReturnedBasketDto> GetBasket(string basketId);
+	 Task<BasketDto> GetBasket(string basketId);
 		Task RemoveBasket(string basketId);
 	}
 }

@@ -190,5 +190,6 @@ namespace RepositoryLayer.Account
 			var token = new JwtSecurityTokenHandler().WriteToken(jwtToken);
 			return token;
 		}
+
 	}
 }

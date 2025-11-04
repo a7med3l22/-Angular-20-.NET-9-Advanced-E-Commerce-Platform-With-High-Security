@@ -1,0 +1,24 @@
+.order-summary-container {
+  display: flex;
+  justify-content: flex-end; /* علشان يكون في أقصى اليمين */
+  padding: 2rem;
+}
+
+.order-summary-card {
+  width: 350px;
+  border-radius: 1rem;
+  background-color: #ffffff;
+}
+
+.mat-card-title {
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+}
+
+.text-muted {
+  font-size: 0.9rem;
+}
+
+.fw-semibold {
+  font-weight: 600;
+}

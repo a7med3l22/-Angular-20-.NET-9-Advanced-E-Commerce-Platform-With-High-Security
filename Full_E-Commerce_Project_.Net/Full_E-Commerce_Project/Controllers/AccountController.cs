@@ -5,13 +5,17 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 using RepositoryLayer.Account;
+using RepositoryLayer.IdentityData.identityContext;
+using RepositoryLayer.unitOfWork;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Security.Claims;
 using System.Text;
+using Z.EntityFramework.Plus;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Full_E_Commerce_Project.Controllers
@@ -22,12 +26,14 @@ namespace Full_E_Commerce_Project.Controllers
 		private readonly UserManager<AppUser> userManager;
 		private readonly IConfiguration configuration;
 		private readonly AccountRepo accountRepo;
+		private readonly AppUserContext appUserContext;
 
-		public AccountController(UserManager<AppUser> userManager, IConfiguration configuration, AccountRepo accountRepo)
+		public AccountController(UserManager<AppUser> userManager, IConfiguration configuration, AccountRepo accountRepo, AppUserContext appUserContext)
 		{
 			this.userManager = userManager;
 			this.configuration = configuration;
 			this.accountRepo = accountRepo;
+			this.appUserContext = appUserContext;
 		}
 		//login - register(Done) - logout - edit profile - change password - forget password - reset password 
 
@@ -359,6 +365,17 @@ namespace Full_E_Commerce_Project.Controllers
 			return Ok(Request.Cookies.ContainsKey("AuthCookie"));
 		}
 
+		//[HttpPost("clearUnConfirmedEmail")]
+		//public async Task clearUnConfirmedEmail()
+		//{
+		//	//18-9 => 18-10
+		//	//18-11
+		//	// الفكرة اني هيضيف شهر ع القديم وهيقارنه ب الوقت دلوقتي لو القديم اصغر من دلوقتي معناه ان القديم بقاله اكتر من شهر مش كونفيرم ف هيمسحه 
+
+		//	await appUserContext.AppUsers.Where(u => (u.CreationDate.AddDays(30) < DateTimeOffset.UtcNow)&&(!u.EmailConfirmed)).ExecuteDeleteAsync();
+		
+		//// عملتها تلقائي ف ال اب علشان لما اشغل التطبيق يحذف تلقائي
+		//}
 
 	}
 }

@@ -4,7 +4,7 @@ import path from 'path';
 import { Shop } from '../shop/shop';
 import { Home } from './core/home/home';
 import { AboutUs } from './about-us/about-us';
-import { BestSeller } from './best-seller/best-seller';
+import { DeliveryMethod } from './core/delivery-method/delivery-method';
 
 const routes: Routes = 
 [
@@ -44,12 +44,11 @@ const routes: Routes =
     {path:'aboutUs',
       component:AboutUs
      },
-  {path:'bestSeller',
+ {path:'deliveryMethod',
 
-         component:BestSeller
+         component:DeliveryMethod
 
   },
-
   {path:'**',redirectTo:'home'}
 
 

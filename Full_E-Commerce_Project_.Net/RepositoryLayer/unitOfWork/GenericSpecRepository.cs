@@ -19,10 +19,18 @@ namespace RepositoryLayer.unitOfWork
 
 		}
 
-		public async Task<IReadOnlyList<T>> GetAllSpecIncludeAsync(params Expression<Func<T, object>>[] funcsSpec)
+		public async Task<IReadOnlyList<T>> GetAllSpecIncludeAsync(Expression<Func<T,bool>>? Predicate=null,params Expression<Func<T, object>>[] funcsSpec)
 		{
 			IQueryable<T> query = dbContext.Set<T>().AsNoTracking();
-			query=funcsSpec.Aggregate(query, (current, func) => current.Include(func));
+
+			if (Predicate != null)
+			{
+				query = query.Where(Predicate);
+			}
+
+			query = funcsSpec.Aggregate(query, (current, func) => current.Include(func));
+			
+			
 			return await query.ToListAsync();
 		}
 		public async Task<IReadOnlyList<T>> GetAllSpecIncludeWithIncludeAsync(params Expression<Func<T, object>>[] func)

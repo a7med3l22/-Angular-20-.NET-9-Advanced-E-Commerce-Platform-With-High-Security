@@ -20,6 +20,12 @@ basket:IAddBasketItem[]
 export interface IAddBasketItem{
 id:number;
 quantity:number;
+name:string;          
+description:string;                               
+oldPrice:number;                                 
+newPrice:number;               
+photosUrl:string[];                 
+categoryName:string;                 
 }
 ///
 export interface IError

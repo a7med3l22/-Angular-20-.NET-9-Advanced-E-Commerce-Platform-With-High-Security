@@ -11,6 +11,7 @@ namespace CoreLayer.Models.UserModel
 	{
 		//public int Id { get; set; } // كده كده وارث اي دي 
 		public string FirstName { get; set; }
+		public DateTime CreationDate { get; set; }=DateTime.UtcNow;
 		public string LastName { get; set; }
 		//public string? PassToken { get; set; }
 		// وان تو وان ريليشن بس عاوز ال ابب يوزر يبقي هو ال متبوع وال ادريس هو التابع 

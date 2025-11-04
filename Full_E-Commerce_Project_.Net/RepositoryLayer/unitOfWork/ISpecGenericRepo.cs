@@ -10,8 +10,8 @@ namespace RepositoryLayer.unitOfWork
 {
 	public interface ISpecGenericRepo<T>: IGenericRepo<T> where T : BaseClass<int>
 	{
-		//Task<IReadOnlyList<T>> GetAllSpecIncludeAsync(params Expression<Func<T, object>>[] funcsSpec);
 		Task<IReadOnlyList<T>> GetAllSpecIncludeWithIncludeAsync(params Expression<Func<T, object>>[] func);
+		Task<IReadOnlyList<T>> GetAllSpecIncludeAsync(Expression<Func<T, bool>>? Predicate, params Expression<Func<T, object>>[] funcsSpec);
 		Task<T?> GetByIdSpecAsync(int Id, params Expression<Func<T, object>>[] funcs);
 		
 	}

@@ -18,7 +18,7 @@ namespace RepositoryLayer.unitOfWork
 		public async Task DeleteAllCategories()
 		{
 			
-			var categories = await GetAllSpecIncludeAsync(c=>c.AllProductsInCategory);
+			var categories = await GetAllSpecIncludeAsync(null,c=>c.AllProductsInCategory);
 			foreach (var category in categories)
 			{
 				foreach (var product in category.AllProductsInCategory.Select(p=>p.Id))

@@ -10,28 +10,35 @@ import { ShopRoutingModule } from '../../shop/shop-routing-module';
 import { PaginationModule } from "ngx-bootstrap/pagination";
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from "../shared/shared-module";
-import { AddToCart } from '../basket/add-to-cart/add-to-cart';
-import { CartItems } from '../basket/cart-items/cart-items';
-import { MatBadgeModule } from '@angular/material/badge';
 
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatRadioModule } from '@angular/material/radio';
+import { DeliveryMethod } from './delivery-method/delivery-method';
+import { BasketModule } from "../basket/basket-module";
+import { OrderSummary } from './order-summary/order-summary';
+import { MatCardModule } from '@angular/material/card';
 
 
 @NgModule({
   declarations: [
     NavBar,//
     Home,//
-    ProductDetails
+    ProductDetails,
+    DeliveryMethod,
+    OrderSummary
 
   ],
   imports: [
+    MatCardModule,
+    MatRadioModule, FormsModule,
     CommonModule,
     FaIconComponent,
     RouterModule,
-    AppRoutingModule,
-    ShopRoutingModule,
+
     PaginationModule.forRoot(),
-    SharedModule,FormsModule,MatBadgeModule
+    SharedModule, FormsModule, MatBadgeModule
+
 ],
-  exports:[NavBar,PaginationModule ]
+  exports:[NavBar,PaginationModule,OrderSummary ]
 })
 export class CoreModule { }

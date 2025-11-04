@@ -39,7 +39,7 @@ namespace RepositoryLayer
 			}
 
 		}
-		public async Task<ReturnedBasketDto> GetBasket(string basketId)
+		public async Task<BasketDto> GetBasket(string basketId)
 		{
 			//Console.Beep(3600, duration: 40); // يصدر صوت بتردد 1000Hz لمدة نص ثانية
 
@@ -50,7 +50,7 @@ namespace RepositoryLayer
 			}
 			var Basketproducts = JsonSerializer.Deserialize<BasketDto>(jsonBasketProducts!)!;
 			
-			 List<ReturnedBasketItemDto> ReturnedBasketItems= new List<ReturnedBasketItemDto>();
+			 List<BasketItemDto> ReturnedBasketItems= new List<BasketItemDto>();
 				var productRepo= unitOfWork.GetProductRepo();
 			foreach (var item in Basketproducts.basket)
 			{
@@ -62,25 +62,25 @@ namespace RepositoryLayer
 
 
 
-				var RequestUrl = httpContext.HttpContext?.Request;
-				var HostUrl = $"{RequestUrl?.Scheme}://{RequestUrl?.Host}";
-				ReturnedBasketItems.Add(new ReturnedBasketItemDto
+				
+				ReturnedBasketItems.Add(new BasketItemDto
 				{
 					id = item.id,
 					quantity = item.quantity,
 
-					// هاجيب الباقي من الداتا بيز
+					// هاجيب الباقي من الداتا بيز لأا غيرت الفكرة 
 
-					name = product.Name,
-					description = product.Description,
-					oldPrice = product.OldPrice,
-					newPrice = product.NewPrice,
-					photosUrl = product.Photos.Select(p => $"{HostUrl}/{p.ImageName.Replace("\\", "/")}").ToList(),
-					categoryName = product.Category.Name
+					name = item.name,
+					description = item.description,
+					oldPrice = item.oldPrice,
+					newPrice = item.newPrice,
+
+					photosUrl = item.photosUrl,
+					categoryName = item.categoryName
 				});
 			}
 
-			var returnedBasket = new ReturnedBasketDto()
+			var returnedBasket = new BasketDto()
 			{
 				basket = ReturnedBasketItems
 			};

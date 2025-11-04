@@ -1,6 +1,8 @@
 export const environment= {
   production: false,
-  baseUrl: 'https://localhost:7260/api/'
+  baseUrl: 'https://localhost:7260/api/',
+  stripePublicKey:'pk_test_51RZSpvQZUUK4xO8RThwZU38ywAKVXS0oWfMW4XrUp9MNlU5jEG9RSlHTFMlZ1y8nkEFxgNocBDweMc4sMLIOyAiY00X7PYryd9'
+
 };
 /*
 

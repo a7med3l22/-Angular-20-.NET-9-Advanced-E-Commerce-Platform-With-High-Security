@@ -141,7 +141,7 @@ export class AddToCart implements OnInit, OnDestroy {
 addToCart()
 {
   debugger;
-this.basket.addItemToBasket(this.product.id,this.itemCount);
+this.basket.addItemToBasket(this.product.id,this.itemCount,this.product.name,this.product.description,this.product.oldPrice,this.product.newPrice,this.product.photosUrl,this.product.categoryName);
 }
   backToShop()
   {

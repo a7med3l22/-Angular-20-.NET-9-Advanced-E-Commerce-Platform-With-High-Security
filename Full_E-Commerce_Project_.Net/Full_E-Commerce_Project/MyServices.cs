@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CoreLayer.Models.orderDto;
 using CoreLayer.Models.UserModel;
 using DocumentFormat.OpenXml.Wordprocessing;
 using Full_E_Commerce_Project.Handle_MiddleWares;
@@ -13,12 +14,14 @@ using RepositoryLayer;
 using RepositoryLayer.Account;
 using RepositoryLayer.Data.Context;
 using RepositoryLayer.IdentityData.identityContext;
+using RepositoryLayer.Services;
 using RepositoryLayer.unitOfWork;
 using StackExchange.Redis;
 using System.Text;
 
 namespace Full_E_Commerce_Project
 {
+	
 	public static class MyServices
 	{
 		
@@ -46,6 +49,7 @@ namespace Full_E_Commerce_Project
 				);
 			services.AddMemoryCache();
 			services.AddScoped<IBasketRedisRepo, BasketRedisRepo>();
+			services.AddScoped<IOrderService, OrderService>();
 			services.AddScoped<AccountRepo>();
 			
 			services.AddSingleton<IConnectionMultiplexer>(
@@ -137,6 +141,7 @@ namespace Full_E_Commerce_Project
 				
 				;
 
+			services.AddHostedService<ClearUnconfirmedUsersService>(); // الميثود ال ف الكلاس ده هيتنادي تلقائي  لما ارن ال app  لانه BackgroundService
 
 
 			return services;

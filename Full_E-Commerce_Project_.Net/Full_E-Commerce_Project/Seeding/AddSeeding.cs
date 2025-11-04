@@ -1,7 +1,9 @@
 ﻿using CoreLayer.Models;
+using CoreLayer.Models.UserModel;
 using DocumentFormat.OpenXml.InkML;
 using Microsoft.EntityFrameworkCore;
 using RepositoryLayer.Data.Context;
+using RepositoryLayer.IdentityData.identityContext;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -84,20 +86,39 @@ namespace RepositoryLayer.Data.Seeding
 			{
 				Directory.CreateDirectory(destinationDir);
 			}
-			
-				foreach (var fileSourcePath in Directory.GetFiles(sourceDir))
-				{
-					var fileDistinationPath= Path.Combine(destinationDir, Path.GetFileName(fileSourcePath));
-					File.Copy(fileSourcePath, fileDistinationPath,true);
-				}
-			
-			
-				foreach (var directorySourcePath in Directory.GetDirectories(sourceDir))
-				{
-					var directoryDistinationPath = Path.Combine(destinationDir, Path.GetFileName(directorySourcePath)); 
-					CopyDirectory(directorySourcePath, directoryDistinationPath);
-				}
-			
+
+			foreach (var fileSourcePath in Directory.GetFiles(sourceDir))
+			{
+				var fileDistinationPath = Path.Combine(destinationDir, Path.GetFileName(fileSourcePath));
+				File.Copy(fileSourcePath, fileDistinationPath, true);
+			}
+
+
+			foreach (var directorySourcePath in Directory.GetDirectories(sourceDir))
+			{
+				var directoryDistinationPath = Path.Combine(destinationDir, Path.GetFileName(directorySourcePath));
+				CopyDirectory(directorySourcePath, directoryDistinationPath);
+			}
+
+		}
+
+
+
+		///seeding DeliveryMeyhods
+		public static async Task SeedingDeliveryMethods(AppUserContext dbUserContext)
+		{
+			var filePath = Path.Combine(Directory.GetCurrentDirectory(), "Seeding", "deliveryMethods.json");
+			var json = File.ReadAllText(filePath);
+			//convert to list of DeliveryMethod
+			var deliveryMethods = JsonSerializer.Deserialize<List<DeliveryMethod>>(json);
+			if (!dbUserContext.deliveryMethods.Any() && deliveryMethods != null && deliveryMethods.Any())
+			{
+				await dbUserContext.Database.ExecuteSqlRawAsync("DBCC CHECKIDENT ('deliveryMethods', RESEED, 0);");
+				await dbUserContext.deliveryMethods.AddRangeAsync(deliveryMethods);
+				await dbUserContext.SaveChangesAsync();
+			}
+
+
 		}
 	}
 }

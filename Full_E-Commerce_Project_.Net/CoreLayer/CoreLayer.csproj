@@ -10,7 +10,4 @@
 		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.7" />
 		<PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="9.0.7" />
 	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="Models\order\" />
-	</ItemGroup>
 </Project>

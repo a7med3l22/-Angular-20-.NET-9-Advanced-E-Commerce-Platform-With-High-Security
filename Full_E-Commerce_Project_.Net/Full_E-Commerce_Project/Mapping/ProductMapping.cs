@@ -3,6 +3,8 @@ using Azure.Core;
 using CoreLayer.Models;
 using CoreLayer.Models.CategoryDtos;
 using CoreLayer.Models.Dtos;
+using CoreLayer.Models.orderDto;
+using CoreLayer.Models.UserModel;
 using RepositoryLayer.Data.Context;
 using System;
 using System.Diagnostics.Metrics;
@@ -61,7 +63,20 @@ namespace Full_E_Commerce_Project.Mapping
 	{
 		public ProductMapping()
 		{
-		
+
+			//order=>OrderResultDto
+			CreateMap<Order, OrderResultDto>()
+				.ForMember(dest => dest.OrderId, opt => opt.MapFrom(src => src.Id))
+				.ForMember(dest => dest.Total, opt => opt.MapFrom(src => src.TotalPrice))
+				.ForMember(dest => dest.PaymentStatus, opt => opt.MapFrom(src => src.PaymentStatus.ToString()))
+
+				;
+
+
+			CreateMap<SetUsersMainAddresse, UsersMainAddresse>();
+
+
+
 			CreateMap<Product, ProductDto>()
 			//.ForMember(dest => dest.PhotosName, opt => opt.MapFrom(src => src.Photos.Select(p =>p.ImageName).ToList()))
 			.ForMember(dest => dest.PhotosUrl, opt => opt.MapFrom<photoReslover>())

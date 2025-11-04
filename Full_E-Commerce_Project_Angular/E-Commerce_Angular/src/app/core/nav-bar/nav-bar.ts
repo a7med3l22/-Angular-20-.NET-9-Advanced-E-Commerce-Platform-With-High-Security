@@ -16,7 +16,7 @@ export class NavBar implements OnInit, OnDestroy {
    *
    */
   subscribe = new Subscription;
-  basketItems: number | null = null;
+  basketItems!: number | null ;
   isAuthorize!:boolean;
   constructor(private basket: BasketService,private isAuth:IsAuth) {
 
@@ -25,6 +25,12 @@ export class NavBar implements OnInit, OnDestroy {
     this.subscribe.unsubscribe()
   }
   ngOnInit(): void {
+    this.subscribe.add(
+this.basket.$basketItems.subscribe(
+val=>this.basketItems=val
+));
+
+
     this.isAuth.getAuthFromBack()
 
  this.subscribe.add(

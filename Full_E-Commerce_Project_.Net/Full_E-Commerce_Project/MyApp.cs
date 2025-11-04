@@ -27,8 +27,16 @@ namespace Full_E_Commerce_Project
 			var dbAppContext = scope.ServiceProvider.GetRequiredService<AppUserContext>();
 			////add Seeding
 			await AddSeeding.Seeding(dbContext); // مش عاوز اعمل سيدنج للداتا لانها هتدي ايرور علشان زودت الهاش ومينفعش اضيفها ب نال لل داتا بيز لاني مش عاملها نلابول ف ال بروبيرتي
+			await AddSeeding.SeedingDeliveryMethods(dbAppContext);
+
+
+
+
 			await dbContext.Database.MigrateAsync();
 			await dbAppContext.Database.MigrateAsync();
+
+			await dbAppContext.AppUsers.Where(u => (u.CreationDate.AddDays(30) < DateTimeOffset.UtcNow) && (!u.EmailConfirmed)).ExecuteDeleteAsync();
+
 			return app;
 		}
 	}

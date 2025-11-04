@@ -25,6 +25,6 @@
 		public int? ProductId { get; set; }
 		//"أنا باخد Snapshot: الاسم والسعر إجباريين، إنما ProductId مجرد Reference، لو المنتج لسه موجود يبقى حلو، لو اتمسح مش فارق معايا."
 		public string ProductName { get; set; }
-		public int Quentity { get; set; }
+		public int Quantity { get; set; }
 	}
 }
