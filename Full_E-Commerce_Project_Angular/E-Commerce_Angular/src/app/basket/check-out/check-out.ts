@@ -116,6 +116,7 @@ export class CheckOut implements OnInit {
 
       //هعمله شكل جمالي وهروح لل هوم وافضي الواحد بتاعت الباسكت 
       this.basket._basketItems.next(null);
+      localStorage.removeItem('basketId');
 
       Swal.fire({
         title: '✅ Payment successful!',
@@ -125,7 +126,6 @@ export class CheckOut implements OnInit {
         timer: 1500
 
       });
-
 
 
       this.router.navigateByUrl("/home");
