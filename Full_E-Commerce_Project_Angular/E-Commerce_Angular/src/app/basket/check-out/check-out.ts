@@ -10,7 +10,7 @@ import { BasketService } from '../basket-service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { OrderService } from '../../core/order/orderService';
-import { timer } from 'rxjs';
+import { firstValueFrom, timer } from 'rxjs';
 
 @Component({
   selector: 'app-check-out',
@@ -58,8 +58,8 @@ export class CheckOut implements OnInit {
   }
 
 
-  intentToPayment(deliveryMethodId: number) {
-
+  updateDeliveryMethods(deliveryMethodId: number)
+  {
     debugger;
     //هجيب السعر من ال اي دي 
     this.http.get<IDeliveryMethod>(environment.baseUrl + 'Order/GetDeliveryById?id=' + deliveryMethodId).subscribe(
@@ -69,22 +69,8 @@ export class CheckOut implements OnInit {
         this.basket._deliveryPrice.next(val.price);
       }
     );
-
-
-
-
-
-
-    this.paymentService.createOrUpdatePaymentIntent(this.order.basketId!, this.order.deliveryMethodId!, this.orderBody!).subscribe({
-      next: res => {
-        this.clientSecret = res.clientSecret
-      }
-      ,
-      error: err => console.error(err)
-    });
-    console.log(this.order);
-    console.log(this.orderBody);
   }
+  
   saveAsNewAddress() {
     if (this.addressForm.valid) {
       this.http.post<ISetMainAddress>(environment.baseUrl + 'Order/SaveNewMainAddress', this.addressForm.value)
@@ -100,7 +86,33 @@ export class CheckOut implements OnInit {
     }
   }
 
-  async submitPayment() {
+
+
+  async intentToPayment():Promise<void> {
+
+    //حوّل الكود جوا intentToPayment() إلى Promise فعلي باستخدام firstValueFrom() من RxJS بدل subscribe. علشان ينتظر 
+
+
+    const result=await firstValueFrom(
+
+      this.paymentService.createOrUpdatePaymentIntent(this.order.basketId!, this.order.deliveryMethodId!, this.orderBody!)
+
+    );
+    this.clientSecret=result.clientSecret;
+
+
+    
+  }
+
+  async submitPayment():Promise<void>  {
+
+
+
+ 
+
+    ///////////////
+     await this.intentToPayment(); // علشان متنفذش اللي بعدها غير لما الميثود دي تخلص اللي جواها 
+    ///////////
     if (!this.stripe || !this.clientSecret) return;
 
     const result = await this.stripe.confirmCardPayment(this.clientSecret, {

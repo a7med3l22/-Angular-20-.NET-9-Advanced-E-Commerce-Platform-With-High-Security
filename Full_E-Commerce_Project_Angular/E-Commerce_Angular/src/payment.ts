@@ -10,6 +10,8 @@ export class Payment {
   constructor(private http: HttpClient) {}
 
   createOrUpdatePaymentIntent(basketId:string,deliveryMethodId:number,orderBody:IOrderBody) {
+
+    
   return this.http.post<{ clientSecret: string, paymentIntentId: string }>(
 
 

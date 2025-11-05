@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-8">
-      <mat-stepper [linear]="true" #stepper>
+<mat-stepper [linear]="true" #stepper [disableRipple]="true" class="custom-stepper">
 
         <!-- Step 1: Address Info -->
         <mat-step [stepControl]="addressForm">
@@ -100,7 +100,7 @@
 
           <div class="mt-4 d-flex justify-content-between">
             <button mat-stroked-button color="accent" matStepperPrevious>Back</button>
-            <button (click)="intentToPayment(order.deliveryMethodId!)" mat-raised-button color="primary" matStepperNext [disabled]="!order.deliveryMethodId">
+            <button (click)="updateDeliveryMethods(order.deliveryMethodId!)" mat-raised-button color="primary" matStepperNext [disabled]="!order.deliveryMethodId">
               Next
             </button>
           </div>
@@ -122,10 +122,10 @@
   </div>
 </mat-step>
 
-          <div class="mt-3 d-flex justify-content-between">
+          <!-- <div class="mt-3 d-flex justify-content-between">
             <button mat-stroked-button color="accent" matStepperPrevious>Back</button>
             <button mat-raised-button color="primary" matStepperNext>Next</button>
-          </div>
+          </div> -->
 
 
       </mat-stepper>

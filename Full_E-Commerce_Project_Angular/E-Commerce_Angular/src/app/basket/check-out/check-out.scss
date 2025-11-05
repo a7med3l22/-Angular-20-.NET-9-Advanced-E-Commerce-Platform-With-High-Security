@@ -22,3 +22,8 @@
     background-color: #f8f9ff;
   }
 }
+::ng-deep .custom-stepper .mat-step-header {
+  pointer-events: none !important;
+  cursor: default !important;
+  opacity: 1 !important;
+}
