@@ -1,22 +1,24 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IDeliveryMethod } from '../../shared/Models/order';
+import { IDeliveryMethod, Order } from '../../shared/Models/order';
 import { environment } from '../../../baseUrl';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class Order {
+export class OrderService {
   ///Get All DeliveryMethod
   /**
    *
    */
   //https://localhost:7260/api/Order/GetAllDeliveryMethodsAsync
-  
+
+  _order=new BehaviorSubject<Order[]|null>(null);
+  $order=this._order.asObservable();
  _deliveryMethods=new BehaviorSubject<IDeliveryMethod[]>([]);
   $deliveryMethod=this._deliveryMethods.asObservable();
-  constructor(http:HttpClient) {
+  constructor(private http:HttpClient) {
     http.get<IDeliveryMethod[]>(environment.baseUrl+"Order/GetAllDeliveryMethodsAsync").subscribe(
       val=>{
               this._deliveryMethods.next(val);
@@ -24,4 +26,15 @@ export class Order {
 
     );
   }
-}
+    getOrders()
+    {
+
+         this.http.get<Order[]>(environment.baseUrl+"Order/GetAllOrdersForUserAsync").subscribe(
+                val=>{
+                    this._order.next(val);
+                }
+        
+            );
+    }
+  }
+

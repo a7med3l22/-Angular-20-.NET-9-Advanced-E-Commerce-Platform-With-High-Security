@@ -1,0 +1,63 @@
+<div class="container mt-4">
+  <h2 class="text-center mb-4">طلباتي السابقة</h2>
+
+  <div *ngIf="order && order.length > 0; else noOrders">
+    <mat-accordion>
+      <mat-expansion-panel *ngFor="let o of order">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            رقم الطلب: #{{ o.orderId }}
+          </mat-panel-title>
+          <mat-panel-description>
+            {{ o.dateTime | date: 'medium' }} - الحالة: {{ o.paymentStatus }}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div class="p-3">
+          <h5>العنوان</h5>
+          <p>
+            {{ o.deliveryAddress.firstName }} {{ o.deliveryAddress.lastName }},
+            {{ o.deliveryAddress.street }}, {{ o.deliveryAddress.city }},
+            {{ o.deliveryAddress.state }}, {{ o.deliveryAddress.country }}
+          </p>
+
+          <h5>طريقة التوصيل</h5>
+          <p>
+            {{ o.deliveryMethod.name }} - {{ o.deliveryMethod.price | currency:'EGP' }}
+            ({{ o.deliveryMethod.deliveryTimeInDays }} أيام)
+          </p>
+
+          <h5>المنتجات</h5>
+          <table class="table table-bordered table-sm">
+            <thead class="table-light">
+              <tr>
+                <th>المنتج</th>
+                <th>الكمية</th>
+                <th>السعر</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of o.orderItems">
+                <td>{{ item.productName }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.price | currency:'EGP' }}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="text-end mt-3">
+            <p><strong>المجموع الفرعي:</strong> {{ o.subTotal | currency:'EGP' }}</p>
+            <p><strong>التوصيل:</strong> {{ o.deliveryMethod.price | currency:'EGP' }}</p>
+            <h5><strong>الإجمالي:</strong> {{ o.total | currency:'EGP' }}</h5>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+
+  <ng-template #noOrders>
+    <div class="text-center mt-5">
+      <p>لا توجد طلبات حتى الآن.</p>
+    </div>
+  </ng-template>
+</div>

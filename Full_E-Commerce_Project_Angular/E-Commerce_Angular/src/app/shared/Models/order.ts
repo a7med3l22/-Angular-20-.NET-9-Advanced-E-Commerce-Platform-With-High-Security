@@ -42,3 +42,38 @@ export interface IPayment
 {
   clientSecret:string;
 }
+export interface Order {
+  orderId: number;
+  orderItems: OrderItem[];
+  deliveryAddress: DeliveryAddress;
+  dateTime: string; // أو Date لو بتحوّلها بعدين
+  paymentStatus: string;
+  subTotal: number;
+  total: number;
+  deliveryMethod: DeliveryMethod;
+}
+
+export interface OrderItem {
+  price: number;
+  productId: number;
+  productName: string;
+  quantity: number;
+  id: number;
+}
+
+export interface DeliveryAddress {
+  firstName: string;
+  lastName: string;
+  street: string;
+  city: string;
+  state: string;
+  zipCode: string;
+  country: string;
+}
+
+export interface DeliveryMethod {
+  name: string;
+  price: number;
+  deliveryTimeInDays: number;
+  id: number;
+}

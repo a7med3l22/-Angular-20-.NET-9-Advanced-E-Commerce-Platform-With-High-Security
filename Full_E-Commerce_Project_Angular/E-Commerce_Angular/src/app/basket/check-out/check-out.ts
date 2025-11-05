@@ -9,6 +9,8 @@ import { IDeliveryMethod, IOrder, IOrderBody } from '../../shared/Models/order';
 import { BasketService } from '../basket-service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { OrderService } from '../../core/order/orderService';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-check-out',
@@ -26,7 +28,7 @@ export class CheckOut implements OnInit {
   orderBody: IOrderBody = {};
   addressForm: FormGroup;
 
-  constructor(private router: Router, private fb: FormBuilder, private http: HttpClient, private paymentService: Payment, private basket: BasketService) {
+  constructor(private orderService:OrderService, private router: Router, private fb: FormBuilder, private http: HttpClient, private paymentService: Payment, private basket: BasketService) {
     this.addressForm = fb.group({
       street: ['', Validators.required],
       city: ['', Validators.required],
@@ -108,7 +110,10 @@ export class CheckOut implements OnInit {
     });
 
     if (result.error) {
+
       this.paymentError = result.error.message ?? 'Payment failed.';
+
+
     } else if (result.paymentIntent?.status === 'succeeded') {
 
 
@@ -116,6 +121,7 @@ export class CheckOut implements OnInit {
 
       //هعمله شكل جمالي وهروح لل هوم وافضي الواحد بتاعت الباسكت 
       this.basket._basketItems.next(null);
+      this.basket._basket.next({basket:[]});
       localStorage.removeItem('basketId');
 
       Swal.fire({
@@ -126,9 +132,9 @@ export class CheckOut implements OnInit {
         timer: 1500
 
       });
-
-
-      this.router.navigateByUrl("/home");
+    timer(2000).subscribe(_ => {
+      this.router.navigateByUrl("/orders");
+    });
 
     }
   }

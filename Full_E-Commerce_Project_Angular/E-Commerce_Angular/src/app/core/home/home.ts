@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({
   selector: 'app-home',
@@ -8,8 +9,6 @@ import { Router } from '@angular/router';
   styleUrl: './home.scss'
 })
 export class Home {
-
-
  
-  
 }
+

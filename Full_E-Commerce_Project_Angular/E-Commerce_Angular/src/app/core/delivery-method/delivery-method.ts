@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Order } from '../order/order';
+import { OrderService } from '../order/orderService';
 import { IDeliveryMethod } from '../../shared/Models/order';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { BasketService } from '../../basket/basket-service';
@@ -18,7 +18,7 @@ export class DeliveryMethod implements OnInit,OnDestroy{
     $selectedDeliveryMethodId!:Observable<number | undefined>;
     deliveryMethods:IDeliveryMethod[]=[];
 
-  constructor(private order:Order,private basket:BasketService) {
+  constructor(private order:OrderService,private basket:BasketService) {
        
     
   }

@@ -45,5 +45,6 @@ namespace Full_E_Commerce_Project.Controllers
 				return BadRequest(ex.Message);
 			}
 		}
+
 	}
 }
